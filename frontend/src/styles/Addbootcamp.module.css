@@ -1,0 +1,12 @@
+.form {
+    padding: 20px;
+    margin-left: 2rem;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.a {
+    display: flex;
+    flex-direction: column;
+}
