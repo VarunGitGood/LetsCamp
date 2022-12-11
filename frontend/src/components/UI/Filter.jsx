@@ -1,8 +1,9 @@
 import React from 'react'
+import s from '../../styles/Dashboard.module.css'
 
 function Filter() {
   return (
-    <div>Filter</div>
+    <div className={s.filter}>Filter</div>
   )
 }
 

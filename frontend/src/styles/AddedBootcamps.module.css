@@ -1,8 +1,0 @@
-.holder {
-    display: flex;
-    background-color: aliceblue;
-    cursor: pointer;
-    flex-direction: row;
-    justify-content: space-between;
-    padding:20px;
-}

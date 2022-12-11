@@ -157,7 +157,7 @@ exports.delBootcamp = asyncHandler(async (req, res, next) => {
 });
 
 // exports.getBootcampWithinDis = asyncHandler(async (req, res, next) => {
-//   const { zipcode, distance } = req.params;  
+//   const { zipcode, distance } = req.params;
 
 //   const loc = await geocoder.geocode(zipcode);
 //   let lng = loc[0].longitude;
@@ -216,7 +216,6 @@ exports.likeBootcamp = asyncHandler(async (req, res, next) => {
 // @DELETE
 // set bootcamp to unliked by user
 // /api/v1/bootcamps/:id/unlike (id of bootcamp)
-
 exports.unlikeBootcamp = asyncHandler(async (req, res, next) => {
   const bootcamp = await Bootcamp.findById(req.params.id);
   const user = await User.findById(req.user.id);
@@ -226,8 +225,21 @@ exports.unlikeBootcamp = asyncHandler(async (req, res, next) => {
     );
   }
 
-  // remove bootcamp from likes array
-  user.likes = user.likes.filter((bootcamp) => bootcamp != req.params.id);
+  user.likes = user.likes.filter(
+    (bootcamp) => bootcamp != req.params.id || null
+  );
+
+  console.log(user.likes);
+
   await user.save();
   res.status(200).json({ success: true, data: user.likes });
+});
+
+// @GET
+// get all bootcamps liked by user
+// /api/v1/bootcamps/liked
+exports.getLikedBootcamps = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  const bootcamps = await Bootcamp.find({ _id: user.likes });
+  res.status(200).json({ success: true, data: bootcamps });
 });

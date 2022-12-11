@@ -1,0 +1,12 @@
+.wishlist {
+    margin-top: 7rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 3rem;
+}
+
+.wishlist div {
+    text-align: center;
+}
+

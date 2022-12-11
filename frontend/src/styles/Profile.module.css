@@ -1,0 +1,70 @@
+.profile {
+  margin-top: 8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.grad {
+  width: 100%;
+  height: 100%;
+}
+
+.bg {
+  height: 24rem;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  background-color: #6741c7;
+  border-radius: 1rem;
+}
+
+.avatar {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  background-color: transparent;
+  margin: 2rem;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.det {
+  display: flex;
+  flex-direction: column;
+  background-color: #f8fafe;
+  height: 15rem;
+  width: 40%;
+  margin: 1rem;
+  border-radius: 1rem;
+  align-items: center;
+
+}
+
+.name {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 1rem;
+   font-family: "Poppins", sans-serif;
+}
+
+
+.date {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin: 1rem;
+     font-family: "Poppins", sans-serif;
+}
+
+
+.email {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin: 1rem;
+     font-family: "Poppins", sans-serif;
+}

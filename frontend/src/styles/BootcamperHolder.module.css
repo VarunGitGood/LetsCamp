@@ -60,3 +60,34 @@
   align-items: center;
   padding-top: 2rem;
 }
+
+.holderA {
+  height: 16rem;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 1rem;
+  border: solid 1px #c4c4c4;
+  cursor: pointer;
+  -webkit-box-shadow: 9px 4px 47px -36px rgba(0,0,0,0.75);
+  -moz-box-shadow: 9px 4px 47px -36px rgba(0,0,0,0.75);
+  box-shadow: 9px 4px 47px -36px rgba(0,0,0,0.75); 
+
+}
+
+
+.btn:hover {
+  background-color: #6741C7;
+}
+
+.likeA {
+  height: 100%;
+  width: 10%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-end;
+  /* align-items: center */
+  
+}

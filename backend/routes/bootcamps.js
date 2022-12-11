@@ -11,6 +11,7 @@ const {
   myBootcamps,
   likeBootcamp,
   unlikeBootcamp,
+  getLikedBootcamps
 } = require("../controllers/bootcamps");
 
 const { protect, authorization } = require("../middleware/auth");
@@ -20,6 +21,7 @@ routes
   .route("/")
   .get(getBootcamps)
   .post(protect, authorization("admin", "publisher"), addBootcamp);
+routes.route("/liked").get(protect, getLikedBootcamps);
 routes
   .route("/mybootcamps")
   .get(protect, authorization("admin", "publisher"), myBootcamps);
@@ -34,5 +36,6 @@ routes
   .put(protect, authorization("admin", "publisher"), UploadBootcampPhoto);
 routes.route("/:id/like").post(protect, likeBootcamp);
 routes.route("/:id/unlike").post(protect, unlikeBootcamp);
+
 
 module.exports = routes;

@@ -17,12 +17,27 @@
 
 .filter {
     height: 30rem;
-    background-color: #f5f5f5;
+    background-color: #F3F5F9;
     border-radius: 1rem;
     padding: 2rem;
-    width: 23%;
+    width: 100%;
     /* margin-right: 2rem; */
 }
 
+.misc {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 23%;
+}
+
+.quote {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    background-color: #F3F5F9;
+
+}
 
 

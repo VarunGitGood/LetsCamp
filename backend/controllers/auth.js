@@ -4,6 +4,7 @@ const User = require("../models/User");
 const sendTokenResponseWithCookie = require("../utils/sendToken");
 const sendEmail = require("../utils/sendMail");
 const crypto = require("crypto");
+const Bootcamp = require("../models/Bootcamp");
 exports.registerUser = asyncHandler(async (req, res, next) => {
   const { name, password, email, role } = req.body;
   const user = await User.create({
@@ -154,4 +155,3 @@ exports.getUser = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.params.id);
   res.status(200).json({ success: true, data: user });
 });
-
