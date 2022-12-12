@@ -6,13 +6,24 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import { UserContext } from '../../context/UserContext';
 
+const accordionStyle = {
+  width: '100%',
+  margin: '10px 0',
+  border: '1px solid rgba(0, 0, 0, .125)',
+  boxShadow: 'none',
+  '&:before': {
+    display: 'none',
+  },
+}
+
 function ReviewCard({review, onDelete}) {
     const user = useContext(UserContext).user;
   return (
-        <Accordion sx={{width:"100%"}}>
+        <Accordion sx={accordionStyle}>
         <AccordionSummary
           aria-controls="panel1a-content"
           id="panel1a-header"
+          
         >
         <Typography>{review.title}</Typography>
         <Rating name="read-only" value={review.rating} readOnly />

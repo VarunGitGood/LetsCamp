@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Rating from "@mui/material/Rating";
 import Typography from "@mui/material/Typography";
-import s from "../../styles/reviewForm.module.css";
+import s from "../../styles/Review.module.css";
 
 import { useForm } from "react-hook-form";
 import { postData } from "../../utils/REST";
@@ -14,10 +14,9 @@ function AddReview({ id, onAdd }) {
   const [value, setValue] = React.useState(3);
   const { register, handleSubmit } = useForm();
   const user = useContext(UserContext).user;
- 
 
   const submitHandler = async (data) => {
-    try{
+    try {
       let finalData = {
         ...data,
         rating: value,
@@ -30,14 +29,13 @@ function AddReview({ id, onAdd }) {
       );
       onAdd(result.data.data);
       setFlag(!flag);
-    }
-    catch(err){
+    } catch (err) {
       // use toastify later
-      if(user.role === "publisher"){
-        window.alert("You are not allowed to review this bootcamp")
+      if (user.role === "publisher") {
+        window.alert("You are not allowed to review this bootcamp");
       }
-      if(err.response.status === 400){
-        window.alert("You have already reviewed this bootcamp")
+      if (err.response.status === 400) {
+        window.alert("You have already reviewed this bootcamp");
       }
       setFlag(!flag);
     }
@@ -86,9 +84,16 @@ function AddReview({ id, onAdd }) {
           </form>
         </div>
       ) : (
-        <Button variant="contained" onClick={() => setFlag(true)}>
-          Add Review
-        </Button>
+        <div className={s.btn}>
+          {" "}
+          <Button
+            variant="contained"
+            onClick={() => setFlag(true)}
+            sx={{ width: "40%" }}
+          >
+            Add Review
+          </Button>
+        </div>
       )}
     </>
   );

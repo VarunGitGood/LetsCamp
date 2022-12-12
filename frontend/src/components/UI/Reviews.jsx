@@ -29,7 +29,6 @@ function Reviews({ id }) {
   return (
     <div className={s.layout}>
       <AddReview id={id} onAdd={addHandler} />
-      <h1>Reviews</h1>
       <Box sx={{ display: "flex", flexWrap: "wrap" , gap:"8px"}}>
       {reviews.map((review) => {
         return <ReviewCard review={review} onDelete={deleteHandler} />;

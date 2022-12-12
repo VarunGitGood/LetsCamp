@@ -22,6 +22,8 @@
     padding: 2rem;
     width: 100%;
     /* margin-right: 2rem; */
+    display: flex;
+    flex-direction: column;
 }
 
 .misc {
@@ -32,12 +34,23 @@
 }
 
 .quote {
+    height: 10rem;
+    background-color: #F3F5F9;
+    border-radius: 1rem;
+    padding: 2rem;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    width: 100%;
-    background-color: #F3F5F9;
+    
 
 }
 
 
+.control {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    justify-content: space-between;
+    margin-top: 2rem;
+    width: 100%;
+}

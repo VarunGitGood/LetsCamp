@@ -58,11 +58,17 @@ exports.getBootcamps = asyncHandler(async (req, res, next) => {
       limit,
     };
   }
+  const bootcampsWithUser = await Promise.all(
+    bootcamps.map(async (bootcamp) => {
+      const user = await User.findById(bootcamp.user);
+      return { ...bootcamp._doc, userName: user.name };
+    })
+  );
+
   res.status(200).json({
     success: true,
     count: bootcamps.length,
-    pagination,
-    data: bootcamps,
+    data: bootcampsWithUser,
   });
 });
 exports.myBootcamps = asyncHandler(async (req, res, next) => {

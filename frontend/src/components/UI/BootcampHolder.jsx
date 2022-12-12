@@ -42,18 +42,6 @@ function BootcampHolder(props) {
     setLike(false);
   };
 
-  const fetchBootcampUser = async () => {
-    const results = await FetchData(
-      `/auth/users/${props.data.user}`,
-      true,
-      window.localStorage.getItem("token")
-    );
-    setUser(results.data.data);
-  };
-  useEffect(() => {
-    fetchBootcampUser();
-  }, []);
-
   return (
     <motion.div className={s.holder} whileHover={{ scale: 1.01 }}>
       <div
@@ -80,7 +68,7 @@ function BootcampHolder(props) {
         <p>
           Created by{" "}
           <p style={{ color: "#6741c7", fontWeight: "900" }}>
-            {user && user.name}
+            {props.data.userName}
           </p>
         </p>
         <p>

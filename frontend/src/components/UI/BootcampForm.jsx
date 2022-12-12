@@ -22,6 +22,57 @@ const MenuProps = {
   },
 };
 
+const cities = [
+  "Mumbai",
+  "Delhi",
+  "Bangalore",
+  "Hyderabad",
+  "Ahmedabad",
+  "Chennai",
+  "Varanasi",
+  "Srinagar",
+  "Aurangabad",
+  "Jalandhar",
+  "Bhubaneswar",
+  "Salem",
+  "Warangal",
+  "Mira-Bhayandar",
+  "Thiruvananthapuram",
+  "Bhiwandi",
+  "Saharanpur",
+  "Gorakhpur",
+  "Guntur",
+  "Bikaner",
+  "Amravati",
+  "Noida",
+  "Jamshedpur",
+  "Bhilai Nagar",
+  "Cuttack",
+  "Firozabad",
+  "Kochi",
+  "Nellore",
+  "Bhavnagar",
+  "Dehradun",
+  "Durgapur",
+  "Asansol",
+  "Raurkela",
+  "Nanded",
+  "Kolhapur",
+  "Ajmer",
+  "Akola",
+  "Gulbarga",
+  "Jamnagar",
+  "Ujjain",
+  "Loni",
+  "Siliguri",
+  "Jhansi",
+  "Ulhasnagar",
+  "Jammu",
+  "Sangli",
+  "Erode",
+  "Tirun",
+];
+
 const Careers = [
   "Web Development",
   "Mobile Development",
@@ -123,6 +174,14 @@ function BootcampForm(props) {
             />
           </div>
           <div className={s.a}>
+            <InputLabel id="city">City</InputLabel>
+            <Select labelId="city" id="city" {...register("city")} required>
+              {cities.map((city) => (
+                <MenuItem key={city} value={city}>
+                  {city}
+                </MenuItem>
+              ))}
+            </Select>
             <InputLabel id="career">Career</InputLabel>
             <Select
               labelId="career"

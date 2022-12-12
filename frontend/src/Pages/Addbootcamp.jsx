@@ -8,7 +8,7 @@ function Addbootcamp() {
 
   const submitHandler = async (data) => {
     try {
-      const result = await postData("/bootcamps",true, token,data);
+      const result = await postData("/bootcamps", true, token, data);
       window.alert("Bootcamp added successfully");
     } catch (error) {
       window.alert("Bootcamp add failed");
@@ -18,10 +18,10 @@ function Addbootcamp() {
   // add visual confirmation that the bootcamp was added
 
   return (
-    <div>
+    <>
       <NavBar />
-      <BootcampForm onSubmit={submitHandler}/>
-    </div>
+      <BootcampForm onSubmit={submitHandler} />
+    </>
   );
 }
 

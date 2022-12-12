@@ -4,8 +4,6 @@ import { useContext } from "react";
 import NavBar from "../components/UI/NavBar";
 import s from "../styles/Profile.module.css";
 import { UserContext } from "../context/UserContext";
-// import mail icon from material ui
-import MailIcon from "@mui/icons-material/Mail";
 import { useNavigate } from "react-router-dom";
 
 function Profile() {
@@ -28,6 +26,7 @@ function Profile() {
           <div className={s.det}>
             <div className={s.name}>{userD.name}</div>
             <div className={s.date}>Joined on: {userD.createdAt}</div>
+            <div className={s.role}>Role: {userD.role}</div>
             <div className={s.email}>Email: {userD.email}</div>
           </div>
         )}

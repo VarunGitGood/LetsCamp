@@ -4,7 +4,9 @@ import { useState } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { motion } from "framer-motion";
+
 function SignUp(props) {
+
   const auth = useContext(AuthContext);
   const [state, setState] = useState({
     name: "",
