@@ -1,9 +1,10 @@
 import React from 'react'
+import s from '../../styles/BootcampPage.module.css'
 
 function MainPge({data}) {
   return (
-    <div>
-       <h1>{data.name}</h1>
+    <div className={s.main}>
+      
     </div>
   )
 }

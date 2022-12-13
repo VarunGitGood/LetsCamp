@@ -28,11 +28,9 @@ function BootcampPage() {
       <NavBar />
       {bootcamp && (
         <div className={s.container}>
-          <div className={s.main}>
-            <MainPge data={bootcamp}/>
-          </div>
+          <MainPge data={bootcamp} />
           <div className={s.reviews}>
-            <Reviews id={id}/>
+            <Reviews id={id} />
           </div>
         </div>
       )}

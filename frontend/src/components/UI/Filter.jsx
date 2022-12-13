@@ -13,6 +13,7 @@ const labelStyle = {
 const selectStyle = {
   width: "100%",
   marginBottom: "0.5rem",
+  backgroundColor: "white",
 };
 
 const buttonStyle = {

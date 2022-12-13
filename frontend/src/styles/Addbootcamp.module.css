@@ -1,12 +1,26 @@
-.form {
-    padding: 20px;
-    margin-left: 2rem;
+
+.layout {
     display: flex;
-    flex-direction: row;
-    gap: 2rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+
+.form {
+
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    margin: 20px 0;
 }
 
 .a {
     display: flex;
     flex-direction: column;
 }
+

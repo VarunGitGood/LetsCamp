@@ -30,7 +30,7 @@ function AddReview({ id, onAdd }) {
       onAdd(result.data.data);
       setFlag(!flag);
     } catch (err) {
-      // use toastify later
+      // use toastify 
       if (user.role === "publisher") {
         window.alert("You are not allowed to review this bootcamp");
       }

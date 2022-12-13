@@ -13,6 +13,8 @@ import s from "../../styles/Addbootcamp.module.css";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
+
+
 const MenuProps = {
   PaperProps: {
     style: {
@@ -96,7 +98,7 @@ function BootcampForm(props) {
   //     averageCost: props.data.averageCost,
   //   };
 
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit } = useForm();
   const [career, setCareer] = useState([]);
 
   const handleChange = (event) => {
@@ -115,16 +117,14 @@ function BootcampForm(props) {
   };
 
   return (
-    <div style={{ marginTop: "9rem" }}>
+    <div style={{ marginTop: "9rem"}}>
       <h1>Details</h1>
-      <div>
+      <div className={s.layout}>
         <form className={s.form} onSubmit={handleSubmit(submitHandler)}>
           <div className={s.a}>
             <TextField
               label="Name"
               name="name"
-              style={{ width: "350px" }}
-              margin="dense"
               {...register("name")}
               required
             />
@@ -132,33 +132,25 @@ function BootcampForm(props) {
               label="Description"
               name="description"
               multiline
-              margin="dense"
               maxRows={4}
-              style={{ width: "350px" }}
               {...register("description")}
               required
             />
             <TextField
               label="Website"
               name="website"
-              style={{ width: "350px" }}
-              margin="dense"
               {...register("website")}
               required
             />
             <TextField
               label="Phone"
               name="phone"
-              style={{ width: "350px" }}
-              margin="dense"
               {...register("phone")}
               required
             />
             <TextField
               label="Email"
               name="email"
-              style={{ width: "350px" }}
-              margin="dense"
               {...register("email")}
               required
             />
@@ -166,9 +158,7 @@ function BootcampForm(props) {
               label="Address"
               name="address"
               multiline
-              margin="dense"
               maxRows={5}
-              style={{ width: "350px" }}
               {...register("address")}
               required
             />
@@ -192,7 +182,6 @@ function BootcampForm(props) {
               input={<OutlinedInput label="Career" />}
               renderValue={(selected) => selected.join(", ")}
               MenuProps={MenuProps}
-              style={{ width: "350px" }}
             >
               {Careers.map((name) => (
                 <MenuItem key={name} value={name}>
