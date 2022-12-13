@@ -1,9 +1,8 @@
 import React from "react";
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Landing from "./Pages/Landing";
 import Dashboard from "./Pages/Dashboard";
-import { BrowserRouter } from "react-router-dom";
 import MyBootcamps from "./Pages/MyBootcamps";
 import BootcampPage from "./Pages/BootcampPage";
 import Addbootcamp from "./Pages/Addbootcamp";
