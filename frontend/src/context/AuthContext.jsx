@@ -42,7 +42,7 @@ export default function AuthProvider({ children }) {
       const userDetails = await FetchData("/auth/me", true, window.localStorage.getItem("token"));
       setUser(userDetails.data.data);}
     } catch (error) {
-      window.alert("invalid token");
+      console.log(error);
     }
   };
 

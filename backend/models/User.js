@@ -19,7 +19,7 @@ const UserSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ["user", "publisher", "admin"],
+    enum: ["user", "publisher","admin"],
     default: "user",
   },
   password: {
@@ -42,13 +42,13 @@ const UserSchema = new mongoose.Schema({
   likes: [
     {
       type: mongoose.Schema.ObjectId,
-      ref: "Bootcamp",
+      ref: "Bootcamp"
     },
   ],
 });
 
 UserSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) {
+  if(!this.isModified("password")){
     next();
   }
   const salt = await bcrypt.genSalt(10);
@@ -56,8 +56,8 @@ UserSchema.pre("save", async function (next) {
 });
 
 UserSchema.methods.getJsonWebTokenSigned = function () {
-  return Jwt.sign({ id: this._id }, "sfmasmcxamcsmcqf", {
-    expiresIn: "20d",
+  return Jwt.sign({ id: this._id }, process.env.JWT_SECRET_KEY, {
+    expiresIn: process.env.JWT_EXPIRES,
   });
 };
 
