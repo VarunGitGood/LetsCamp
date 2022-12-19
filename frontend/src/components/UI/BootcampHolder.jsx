@@ -81,7 +81,6 @@ function BootcampHolder(props) {
             value={props.data.averageRating}
             readOnly
             precision={0.5}
-            defaultValue={3.5}
           />
         </span>
         <span style={{ fontWeight: "600" }}>

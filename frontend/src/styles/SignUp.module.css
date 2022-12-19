@@ -1,7 +1,69 @@
-.container {
-    height: 500px;
-    width: 300px;
+
+
+.control {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+}
+
+.form {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    gap: 25px;
+}
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.container {
+    height: 80%;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    margin-top: 4rem;
+}
+
+.header {
+    display: flex;
+    width: 100%;
+    height: 20%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8rem;
+}
+
+.formS {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    /* align-items: center; */
+    gap: 15px;
+}
+
+.containerS {
+    height: 80%;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: -4rem;
+}
+
+.headerS {
+    display: flex;
+    width: 100%;
+    height: 20%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 6rem;
 }

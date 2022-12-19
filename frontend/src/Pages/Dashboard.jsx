@@ -37,8 +37,8 @@ function DashboardLayout(props) {
 function DashboardMisc({ onChange }) {
   return (
     <div className={s.misc}>
-      <Quotes />
       <Filter onChange={onChange} />
+      <Quotes />
     </div>
   );
 }
