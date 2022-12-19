@@ -1,8 +1,8 @@
-const ProtectedRoute = ({ user, children }) => {
-  if (!user) {
-    return <Navigate to="/landing" replace />;
+import { Navigate } from "react-router-dom";
+const Protected = ({ isLoggedIn, children }) => {
+  if (!isLoggedIn) {
+    return <Navigate to="/" replace />;
   }
-
   return children;
 };
-export default ProtectedRoute;
+export default Protected;

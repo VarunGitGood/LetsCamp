@@ -6,6 +6,21 @@ import s from "../styles/BootcampPage.module.css";
 import Reviews from "../components/UI/Reviews";
 import MainPge from "../components/UI/MainPge";
 
+function BootcampDisplay({ bootcamp, id }) {
+  return (
+    <>
+      {bootcamp && (
+        <div className={s.container}>
+          <MainPge data={bootcamp} />
+          <div className={s.reviews}>
+            <Reviews id={id} />
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
 function BootcampPage() {
   const { id } = useParams();
   const [bootcamp, setBootcamp] = useState(null);
@@ -24,17 +39,10 @@ function BootcampPage() {
   }, []);
 
   return (
-    <div>
+    <>
       <NavBar />
-      {bootcamp && (
-        <div className={s.container}>
-          <MainPge data={bootcamp} />
-          <div className={s.reviews}>
-            <Reviews id={id} />
-          </div>
-        </div>
-      )}
-    </div>
+      <BootcampDisplay bootcamp={bootcamp} id={id} />
+    </>
   );
 }
 
