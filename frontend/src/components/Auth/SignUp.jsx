@@ -113,7 +113,7 @@ function SignUp(props) {
               justifyContent: "space-between",
             }}
           >
-            <FormLabel id="radio"> Select Role -></FormLabel>
+            <FormLabel id="radio"> Select Role</FormLabel>
             <RadioGroup row id="radio">
               <FormControlLabel
                 value="user"

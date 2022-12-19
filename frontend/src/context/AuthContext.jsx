@@ -15,7 +15,8 @@ export default function AuthProvider({ children }) {
       window.localStorage.setItem("token", result.data.token);
       setToken(result.data.token);
     } catch (error) {
-      window.alert(error.message);
+      // window.alert(error.message);
+      console.log(error.message);
     }
   };
 
@@ -26,7 +27,8 @@ export default function AuthProvider({ children }) {
       User.fetchUser();
       setToken(result.data.token);
     } catch (error) {
-      window.alert(error.message);
+      // window.alert(error.message);
+      console.log(error.message);
     }
   };
 
@@ -38,9 +40,14 @@ export default function AuthProvider({ children }) {
 
   const fetchUser = async () => {
     try {
-      if(token) {
-      const userDetails = await FetchData("/auth/me", true, window.localStorage.getItem("token"));
-      setUser(userDetails.data.data);}
+      if (token) {
+        const userDetails = await FetchData(
+          "/auth/me",
+          true,
+          window.localStorage.getItem("token")
+        );
+        setUser(userDetails.data.data);
+      }
     } catch (error) {
       console.log(error);
     }
