@@ -8,6 +8,7 @@ import BootcampPage from "./Pages/BootcampPage";
 import Addbootcamp from "./Pages/Addbootcamp";
 import Wishlist from "./Pages/Wishlist";
 import Profile from "./Pages/Profile";
+import NotFound from "./Pages/NotFound";
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
         <Route path="/addbootcamp" exact element={<Addbootcamp />} />
         <Route path="/wishlist" exact element={<Wishlist />} />
         <Route path="/profile" exact element={<Profile />} />
-        <Route path="*" element={<h1>404</h1>} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

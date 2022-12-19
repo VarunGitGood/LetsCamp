@@ -9,11 +9,21 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import { useEffect } from "react";
 import { FetchData } from "../../utils/REST";
 
+const AvatarStyle = {
+  cursor: "pointer",
+  bgcolor: "#6741C7",
+  height: "3.2rem",
+  width: "3.2rem",
+  fontSize: "0.8rem",
+  fontFamily: "Poppins",
+  fontWeight: "600",
+  padding: "0.5rem",
+};
+
 function NavBar() {
   const navigate = useNavigate();
   const userDetails = useContext(UserContext).user;
   const [likes, setLikes] = useState(null);
-  console.log(likes);
   const fetchLikes = async () => {
     try {
       const results = await FetchData(
@@ -50,16 +60,16 @@ function NavBar() {
       </p>
       <div className={s.control}>
         <Badge
-            badgeContent={likes}
-            color="error"
-            onClick={() => {
-              navigate("/wishlist");
-            }}
-          >
-            <FavoriteBorderOutlinedIcon
-              sx={{ fontSize: "2.2rem" }}
-            ></FavoriteBorderOutlinedIcon>
-          </Badge>
+          badgeContent={likes}
+          color="error"
+          onClick={() => {
+            navigate("/wishlist");
+          }}
+        >
+          <FavoriteBorderOutlinedIcon
+            sx={{ fontSize: "2.2rem" }}
+          ></FavoriteBorderOutlinedIcon>
+        </Badge>
 
         {userDetails && userDetails.role === "user" && <span>Ongoing</span>}
         {userDetails && userDetails.role === "publisher" && (
@@ -74,16 +84,7 @@ function NavBar() {
         {userDetails && (
           <Avatar
             {...stringAvatar(userDetails.name)}
-            sx={{
-              cursor: "pointer",
-              bgcolor: "#6741C7",
-              height: "3.2rem",
-              width: "3.2rem",
-              fontSize: "0.8rem",
-              fontFamily: "Poppins",
-              fontWeight: "600",
-              padding: "0.5rem",
-            }}
+            sx={AvatarStyle}
             onClick={() => {
               navigate("/profile");
             }}
