@@ -1,9 +1,9 @@
 const asyncHandler = require("../middleware/async");
 const ErrorResponse = require("../utils/errorResponse");
-const geocoder = require("../utils/geocoder");
 const Bootcamp = require("../models/Bootcamp");
 const User = require("../models/User");
-const path = require("path");
+const EnrolledUsers = require("../models/EnrolledUsers");
+
 // change bootcamps to courses
 exports.getBootcamps = asyncHandler(async (req, res, next) => {
   let query;
@@ -18,7 +18,7 @@ exports.getBootcamps = asyncHandler(async (req, res, next) => {
     (match) => `$${match}`
   );
 
-  query = Bootcamp.find(JSON.parse(queryString)); 
+  query = Bootcamp.find(JSON.parse(queryString));
 
   // Select Fields
   if (req.query.select) {
@@ -64,7 +64,6 @@ exports.getBootcamps = asyncHandler(async (req, res, next) => {
       return { ...bootcamp._doc, userName: user.name };
     })
   );
-
   res.status(200).json({
     success: true,
     count: bootcamps.length,
@@ -87,7 +86,6 @@ exports.getBootcamp = asyncHandler(async (req, res, next) => {
       new ErrorResponse(`No Bootcamp Found with ${req.params.id}`, 400)
     );
   }
-
   res.status(200).json({ success: true, data: bootcamp });
 });
 
@@ -104,9 +102,7 @@ exports.addBootcamp = asyncHandler(async (req, res, next) => {
       )
     );
   }
-
   const bootcamp = await Bootcamp.create(req.body);
-
   res.status(201).json({
     success: true,
     data: bootcamp,
@@ -114,7 +110,6 @@ exports.addBootcamp = asyncHandler(async (req, res, next) => {
 });
 exports.updateBootcamp = asyncHandler(async (req, res, next) => {
   let bootcamp = await Bootcamp.findById(req.params.id);
-
   if (!bootcamp) {
     return next(
       new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404)
@@ -146,7 +141,6 @@ exports.delBootcamp = asyncHandler(async (req, res, next) => {
       new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404)
     );
   }
-
   // Make sure user is bootcamp owner
   if (bootcamp.user.toString() !== req.user.id && req.user.role !== "admin") {
     return next(
@@ -156,32 +150,14 @@ exports.delBootcamp = asyncHandler(async (req, res, next) => {
       )
     );
   }
-
   await bootcamp.remove();
-
   res.status(200).json({ success: true, data: {} });
 });
 
-// exports.getBootcampWithinDis = asyncHandler(async (req, res, next) => {
-//   const { zipcode, distance } = req.params;
-
-//   const loc = await geocoder.geocode(zipcode);
-//   let lng = loc[0].longitude;
-//   let lat = loc[0].latitude;
-//   //finding radius kms
-//   const radius = distance / 6378;
-
-//   const bootcamps = await Bootcamp.find({
-//     location: { $geoWithin: { $centerSphere: [[lng, lat], radius] } },
-//   });
-//   res
-//     .status(200)
-//     .json({ success: true, count: bootcamps.length, data: bootcamps });
-// });
-
-// @POST
+// @PUT
 // upload photo url for bootcamp
-exports.UploadBootcampPhoto = asyncHandler(async (req, res, next) => {
+// /api/v1/bootcamps/:id/photo
+exports.uploadBootcampPhoto = asyncHandler(async (req, res, next) => {
   const bootcamp = await Bootcamp.findById(req.params.id);
   const { url } = req.body;
   if (!bootcamp) {
@@ -198,7 +174,6 @@ exports.UploadBootcampPhoto = asyncHandler(async (req, res, next) => {
 // @POST
 // set bootcamp to liked by user
 // /api/v1/bootcamps/:id/like
-
 exports.likeBootcamp = asyncHandler(async (req, res, next) => {
   const bootcamp = await Bootcamp.findById(req.params.id);
   const user = await User.findById(req.user.id);
@@ -230,13 +205,9 @@ exports.unlikeBootcamp = asyncHandler(async (req, res, next) => {
       new ErrorResponse(`No Bootcamp Found with ${req.params.id}`, 400)
     );
   }
-
   user.likes = user.likes.filter(
     (bootcamp) => bootcamp != req.params.id || null
   );
-
-  console.log(user.likes);
-
   await user.save();
   res.status(200).json({ success: true, data: user.likes });
 });
@@ -248,4 +219,46 @@ exports.getLikedBootcamps = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.user.id);
   const bootcamps = await Bootcamp.find({ _id: user.likes });
   res.status(200).json({ success: true, data: bootcamps });
+});
+
+// @GET
+// get enrolled in bootcamp
+// /api/v1/bootcamps/:id/enroll
+exports.enrollInBootcamp = asyncHandler(async (req, res, next) => {
+  const bootcamp = await Bootcamp.findById(req.params.id);
+  if (!bootcamp) {
+    return next(
+      new ErrorResponse(`No Bootcamp Found with ${req.params.id}`, 400)
+    );
+  }
+  // check if user is already enrolled in bootcamp
+  let enrolledUser = await EnrolledUsers.findOne({
+    user: req.user.id,
+    bootcamp: req.params.id,
+  });
+  if (enrolledUser) {
+    return next(new ErrorResponse(`User already enrolled in bootcamp`, 400));
+  }
+
+  enrolledUser = await EnrolledUsers.create({
+    user: req.user.id,
+    bootcamp: req.params.id,
+  });
+  res.status(200).json({ success: true, data: enrolledUser });
+});
+
+// @GET
+// get all count of enrolled users in bootcamp
+// /api/v1/bootcamps/:id/enrolled
+exports.getEnrolledUsers = asyncHandler(async (req, res, next) => {
+  const bootcamp = await Bootcamp.findById(req.params.id);
+  if (!bootcamp) {
+    return next(
+      new ErrorResponse(`No Bootcamp Found with ${req.params.id}`, 400)
+    );
+  }
+  const enrolledUsers = await EnrolledUsers.countDocuments({
+    bootcamp: req.params.id,
+  });
+  res.status(200).json({ success: true, data: enrolledUsers });
 });

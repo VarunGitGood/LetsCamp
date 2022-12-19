@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const slugify = require("slugify");
-const geocoder = require("../utils/geocoder");
 
 const BootcampSchema = new mongoose.Schema({
   name: {
@@ -93,7 +92,6 @@ const BootcampSchema = new mongoose.Schema({
     ],
   },
   careers: {
-    // Array of strings
     type: [String],
     required: true,
     enum: [
@@ -131,11 +129,16 @@ const BootcampSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  photo: {
+    type: String,
+    default:
+      "https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+  },
   user: {
     type: mongoose.Schema.ObjectId,
     ref: "User",
     required: true,
-  },
+  }
 });
 
 // Create bootcamp slug from the name

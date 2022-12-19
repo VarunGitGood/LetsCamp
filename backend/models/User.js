@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const Jwt = require("jsonwebtoken");
 const crypto = require("crypto");
-
+// add profile img url
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -19,7 +19,7 @@ const UserSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ["user", "publisher","admin"],
+    enum: ["user", "publisher", "admin"],
     default: "user",
   },
   password: {
@@ -42,13 +42,13 @@ const UserSchema = new mongoose.Schema({
   likes: [
     {
       type: mongoose.Schema.ObjectId,
-      ref: "Bootcamp"
+      ref: "Bootcamp",
     },
-  ],
+  ]
 });
 
 UserSchema.pre("save", async function (next) {
-  if(!this.isModified("password")){
+  if (!this.isModified("password")) {
     next();
   }
   const salt = await bcrypt.genSalt(10);

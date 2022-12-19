@@ -2,7 +2,6 @@ const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middleware/async');
 const Review = require('../models/Reviews');
 const Bootcamp = require('../models/Bootcamp');
-const { populate } = require('../models/Reviews');
 
 
 // @route     GET /api/v1/bootcamps/:bootcampId/reviews

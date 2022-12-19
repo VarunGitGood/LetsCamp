@@ -3,8 +3,6 @@ const dot = require("dotenv");
 const morgan = require("morgan");
 const colors = require("colors");
 const errorHandler = require("./middleware/error");
-const fileupload = require("express-fileupload");
-const path = require("path");
 const cookie = require("cookie-parser");
 const connection = require("./config/db");
 const cors = require("cors");
@@ -27,8 +25,6 @@ if (process.env.NODE_ENV == "development") {
 //mounting middleware
 app.use(cors())
 app.use(cookie());
-app.use(fileupload());
-app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/v1/bootcamps", bootcamps);
 app.use("/api/v1/auth", auth);
 app.use(errorHandler);
