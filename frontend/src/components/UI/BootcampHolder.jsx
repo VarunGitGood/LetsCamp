@@ -8,7 +8,6 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Rating from "@mui/material/Rating";
 
-
 const likeStyle = {
   "&:hover": {
     color: "#6741C7",
@@ -18,11 +17,10 @@ const likeStyle = {
 
 function BootcampHolder(props) {
   const navigate = useNavigate();
-  const [user, setUser] = useState({});
   const [like, setLike] = useState(props.likes);
   let date = new Date(props.data.createdAt).toDateString();
 
-  // const flag = 
+  // const flag =
 
   const likeBootcamp = async () => {
     const results = await postData(

@@ -79,13 +79,15 @@ exports.myBootcamps = asyncHandler(async (req, res, next) => {
 });
 
 exports.getBootcamp = asyncHandler(async (req, res, next) => {
-  const bootcamp = await Bootcamp.findById(req.params.id);
+  let bootcamp = await Bootcamp.findById(req.params.id);
 
   if (!bootcamp) {
     return next(
       new ErrorResponse(`No Bootcamp Found with ${req.params.id}`, 400)
     );
   }
+  const user = await User.findById(bootcamp.user);
+  bootcamp = { ...bootcamp._doc, userName: user.name };
   res.status(200).json({ success: true, data: bootcamp });
 });
 

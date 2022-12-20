@@ -48,12 +48,12 @@ function Dashboard() {
   const [flag, setFlag] = useState(false);
   const [path, setPath] = useState("/bootcamps");
   const [loading, setLoading] = useState(true);
-  const userDetails = useContext(UserContext).user;
 
   const fetchBootcamps = async () => {
     const results = await FetchData(path, false, null);
     setLoading(false);
     setBootcamps(results.data.data);
+    console.log(results.data.data);
     if (results.data.data.length === 0) {
       setFlag(true);
     } else {
@@ -74,11 +74,7 @@ function Dashboard() {
       <NavBar />
       <DashboardLayout>
         {loading && <Loading flag={loading} />}
-        <Bootcamps
-          bootcamps={bootcamps}
-          flag={flag}
-          userDetails={userDetails}
-        />
+        <Bootcamps bootcamps={bootcamps} flag={flag} />
         <DashboardMisc onChange={filterBootcamps} />
       </DashboardLayout>
     </>

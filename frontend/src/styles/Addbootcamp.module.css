@@ -9,18 +9,21 @@
 
 
 .form {
-
+    display: flex;
     width: 100%;
     max-width: 800px;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #fff;
-    margin: 20px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    justify-content: space-between;
 }
 
 .a {
     display: flex;
     flex-direction: column;
+    width: 45%;
 }
+
+
 

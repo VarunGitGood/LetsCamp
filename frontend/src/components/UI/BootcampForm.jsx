@@ -10,10 +10,13 @@ import Select from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
 import Button from "@mui/material/Button";
 import s from "../../styles/Addbootcamp.module.css";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormLabel from "@mui/material/FormLabel";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
-
 
 const MenuProps = {
   PaperProps: {
@@ -22,6 +25,15 @@ const MenuProps = {
       width: 250,
     },
   },
+};
+
+const RadioStyle = {
+  color: "#6741C7",
+};
+
+const TextFieldStyle = {
+  width: "100%",
+  marginBottom: "1rem",
 };
 
 const cities = [
@@ -113,11 +125,13 @@ function BootcampForm(props) {
       ...data,
       careers: career,
     };
+    // change if housing a
+    console.log(data);
     props.onSubmit(finalData);
   };
 
   return (
-    <div style={{ marginTop: "9rem"}}>
+    <div style={{ marginTop: "9rem" }}>
       <h1>Details</h1>
       <div className={s.layout}>
         <form className={s.form} onSubmit={handleSubmit(submitHandler)}>
@@ -127,6 +141,7 @@ function BootcampForm(props) {
               name="name"
               {...register("name")}
               required
+              sx={TextFieldStyle}
             />
             <TextField
               label="Description"
@@ -135,24 +150,28 @@ function BootcampForm(props) {
               maxRows={4}
               {...register("description")}
               required
+              sx={TextFieldStyle}
             />
             <TextField
               label="Website"
               name="website"
               {...register("website")}
               required
+              sx={TextFieldStyle}
             />
             <TextField
               label="Phone"
               name="phone"
               {...register("phone")}
               required
+              sx={TextFieldStyle}
             />
             <TextField
               label="Email"
               name="email"
               {...register("email")}
               required
+              sx={TextFieldStyle}
             />
             <TextField
               label="Address"
@@ -161,11 +180,18 @@ function BootcampForm(props) {
               maxRows={5}
               {...register("address")}
               required
+              sx={TextFieldStyle}
             />
           </div>
           <div className={s.a}>
             <InputLabel id="city">City</InputLabel>
-            <Select labelId="city" id="city" {...register("city")} required>
+            <Select
+              labelId="city"
+              id="city"
+              {...register("city")}
+              required
+              sx={TextFieldStyle}
+            >
               {cities.map((city) => (
                 <MenuItem key={city} value={city}>
                   {city}
@@ -182,6 +208,7 @@ function BootcampForm(props) {
               input={<OutlinedInput label="Career" />}
               renderValue={(selected) => selected.join(", ")}
               MenuProps={MenuProps}
+              sx={TextFieldStyle}
             >
               {Careers.map((name) => (
                 <MenuItem key={name} value={name}>
@@ -190,45 +217,52 @@ function BootcampForm(props) {
                 </MenuItem>
               ))}
             </Select>
-            <label htmlFor="housing">Housing Available</label>
-            <select
-              id="housing"
-              name="housing"
-              required
+            <FormLabel>Does your Bootcamp have housing?</FormLabel>
+            <RadioGroup
+              aria-label="housing"
+              aria-required
               {...register("housing")}
             >
-              <option value="false">Select housing</option>
-              <option value="true">Yes</option>
-              <option value="false">No</option>
-            </select>
-            <label htmlFor="housing">Job Assistance</label>
-            <select
-              id="jobAssistance"
-              name="jobAssistance"
-              required
+              <FormControlLabel value={true} control={<Radio />} label="True" />
+              <FormControlLabel
+                value={false}
+                control={<Radio />}
+                label="False"
+              />
+            </RadioGroup>
+            <FormLabel>Does your Bootcamp have Job Assistance?</FormLabel>
+            <RadioGroup
+              aria-label="Job Assistance"
+              aria-required
               {...register("jobAssistance")}
             >
-              <option value="false">Select job assistance</option>
-              <option value="true">Yes</option>
-              <option value="false">No</option>
-            </select>
-            <label htmlFor="jobGuarantee">Job Guarantee</label>
-            <select
-              id="jobGuarantee"
-              name="jobGuarantee"
-              required
+              <FormControlLabel value={true} control={<Radio />} label="True" />
+              <FormControlLabel
+                value={false}
+                control={<Radio />}
+                label="False"
+              />
+            </RadioGroup>
+            <FormLabel>Does your Bootcamp have Job Guarentee?</FormLabel>
+            <RadioGroup
+              aria-label="Job Guarantee"
+              aria-required
               {...register("jobGuarantee")}
             >
-              <option value="false">Select Job Guarantee</option>
-              <option value="true">Yes</option>
-              <option value="false">No</option>
-            </select>
+              <FormControlLabel value={true} control={<Radio />} label="True" />
+              <FormControlLabel
+                value={false}
+                control={<Radio />}
+                label="False"
+              />
+            </RadioGroup>
             <TextField
               label="Average Cost"
               name="averageCost"
               required
               style={{ width: "350px", marginTop: "10px" }}
               type="number"
+              sx={TextFieldStyle}
               {...register("averageCost")}
             />
             <Button
