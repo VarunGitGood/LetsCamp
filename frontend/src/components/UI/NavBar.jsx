@@ -71,7 +71,9 @@ function NavBar() {
           ></FavoriteBorderOutlinedIcon>
         </Badge>
 
-        {userDetails && userDetails.role === "user" && <span>Ongoing</span>}
+        {userDetails && userDetails.role === "user" && <span onClick={() => {
+          navigate("/ongoing");
+        }}>Ongoing</span>}
         {userDetails && userDetails.role === "publisher" && (
           <span
             onClick={() => {

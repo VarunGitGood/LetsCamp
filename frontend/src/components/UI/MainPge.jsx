@@ -1,11 +1,11 @@
-import { Chip, Paper } from "@mui/material";
+import { Button, Chip, Paper } from "@mui/material";
 import React from "react";
 import s from "../../styles/BootcampPage.module.css";
 import Checkbox from "@mui/material/Checkbox";
 import Rating from "@mui/material/Rating";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import { FetchData } from "../../utils/REST";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 const CheckboxStyle = {
@@ -25,9 +25,36 @@ const ChipStyle = {
   marginBottom: "1rem",
 };
 
-function MainPge({ data }) {
+const ButtonStyle = {
+  backgroundColor: "#6741C7",
+  color: "white",
+  fontWeight: "bold",
+  fontFamily: "Poppins",
+  width: "100%",
+  fontSize: "14px",
+  "&:hover": {
+    backgroundColor: "#6741C7",
+  },
+};
+
+function MainPge({ data, user }) {
   const { id } = useParams();
-  const [num, setNum] = React.useState(0);
+  const [num, setNum] = useState(0);
+  const [enrolled, setEnrolled] = useState(false);
+
+  const enrollUser = async () => {
+    try {
+      const results = await FetchData(
+        `/bootcamps/${id}/enroll`,
+        true,
+        window.localStorage.getItem("token")
+      );
+      setEnrolled(true);
+      console.log(results);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const fetchNum = async () => {
     const results = await FetchData(
@@ -35,33 +62,32 @@ function MainPge({ data }) {
       true,
       window.localStorage.getItem("token")
     );
-    setNum(results.data.data)
+    setNum(results.data.data);
     console.log(results.data.data);
+  };
+
+  const isEnrolled = async () => {
+    try {
+      const results = await FetchData(
+        `/bootcamps/${id}/isEnrolled`,
+        true,
+        window.localStorage.getItem("token")
+      );
+      setEnrolled(results.data.data);
+      console.log(results.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+    
   };
 
   useEffect(() => {
     fetchNum();
+    isEnrolled();
   }, []);
   return (
     <div className={s.main}>
       <div className={s.header}>
-        <div
-          style={{
-            width: "45%",
-            height: "100%",
-          }}
-        >
-          <img
-            src={data.photo}
-            alt="img"
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              borderRadius: "14px",
-            }}
-          />
-        </div>
         <div className={s.header__right}>
           <h1>{data.name}</h1>
           <p>{data.description}</p>
@@ -80,85 +106,131 @@ function MainPge({ data }) {
               precision={0.1}
             />
             <span>Completed by {num}</span>
-
           </p>
-          <p style={{
+          <p
+            style={{
               marginBottom: "0",
-          }}>
+            }}
+          >
             Created by:{" "}
             <span
               style={{
                 fontWeight: "bold",
                 marginRight: "1rem",
-              
+
                 color: "#6741C7",
               }}
             >
               {data.userName}
             </span>
           </p>
-          <p
+          <div
             style={{
-              marginBottom: "0rem",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
             }}
           >
-            Cost:
-            <CurrencyRupeeIcon sx={{ fontWeight: "900", fontSize: "1rem" }} />
-            <p>{data.averageCost}</p>
-          </p>
+            <p
+              style={{
+                marginBottom: "0rem",
+              }}
+            >
+              Cost:
+              <CurrencyRupeeIcon sx={{ fontWeight: "900", fontSize: "1rem" }} />
+              <p>{data.averageCost}</p>
+            </p>
+            {user.role == "user" && (
+              <span>
+                {enrolled ? (
+                  <Button variant="contained" sx={ButtonStyle} disabled>
+                    Enrolled
+                  </Button>
+                ) : (
+                  <Button
+                    variant="contained"
+                    sx={ButtonStyle}
+                    onClick={enrollUser}
+                  >
+                    Enroll
+                  </Button>
+                )}
+              </span>
+            )}
+          </div>
+        </div>
+        <div
+          style={{
+            width: "45%",
+            height: "100%",
+          }}
+        >
+          <img
+            src={data.photo}
+            alt="img"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              borderRadius: "14px",
+            }}
+          />
         </div>
       </div>
       <div className={s.details}>
         <div className={s.detail}>
-          <h2>Details</h2>
-          <p>
-            <span
-              style={{
-                fontWeight: "bold",
-                marginRight: "1rem",
-                color: "#6741C7",
-              }}
-            >
-              Website :
-            </span>
-            {data.website}
-          </p>
-          <p>
-            <span
-              style={{
-                fontWeight: "bold",
-                marginRight: "1rem",
-                color: "#6741C7",
-              }}
-            >
-              Email :
-            </span>
-            {data.email}
-          </p>
-          <p>
-            <span
-              style={{
-                fontWeight: "bold",
-                marginRight: "1rem",
-                color: "#6741C7",
-              }}
-            >
-              Phone :
-            </span>
-            {data.phone}
-          </p>
-          <p>
-            <span
-              style={{
-                fontWeight: "bold",
-                marginRight: "1rem",
-                color: "#6741C7",
-              }}
-            >
-              Address :
-            </span>
-            {data.address}
-          </p>
+          <div>
+            <h2>Details</h2>
+            <p>
+              <span
+                style={{
+                  fontWeight: "bold",
+                  marginRight: "1rem",
+                  color: "#6741C7",
+                }}
+              >
+                Website :
+              </span>
+              <a href={data.website}>{data.website}</a>
+            </p>
+            <p>
+              <span
+                style={{
+                  fontWeight: "bold",
+                  marginRight: "1rem",
+                  color: "#6741C7",
+                }}
+              >
+                Email :
+              </span>
+              {data.email}
+            </p>
+            <p>
+              <span
+                style={{
+                  fontWeight: "bold",
+                  marginRight: "1rem",
+                  color: "#6741C7",
+                }}
+              >
+                Phone :
+              </span>
+              {data.phone}
+            </p>
+            <p>
+              <span
+                style={{
+                  fontWeight: "bold",
+                  marginRight: "1rem",
+                  color: "#6741C7",
+                }}
+              >
+                Address :
+              </span>
+              {data.address}
+            </p>
+          </div>
+          <div></div>
         </div>
         <div
           style={{

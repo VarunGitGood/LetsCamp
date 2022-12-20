@@ -14,6 +14,8 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
+// import IconButton from "@mui/material/IconButton";
+// import PhotoCamera from "@mui/icons-material/PhotoCamera";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -27,8 +29,17 @@ const MenuProps = {
   },
 };
 
-const RadioStyle = {
-  color: "#6741C7",
+const buttonStyle = {
+  width: "50%",
+  fontSize: "1rem",
+  fontWeight: "bold",
+  fontFamily: "Poppins",
+  marginBottom: "0.5rem",
+  backgroundColor: "#6741C7",
+  color: "white",
+  "&:hover": {
+    backgroundColor: "#6741C7",
+  },
 };
 
 const TextFieldStyle = {
@@ -125,8 +136,7 @@ function BootcampForm(props) {
       ...data,
       careers: career,
     };
-    // change if housing a
-    console.log(data);
+    console.log(data.housing, data.jobAssistance, data.jobGuarantee);
     props.onSubmit(finalData);
   };
 
@@ -137,7 +147,7 @@ function BootcampForm(props) {
         <form className={s.form} onSubmit={handleSubmit(submitHandler)}>
           <div className={s.a}>
             <TextField
-              label="Name"
+              label="Name of Bootcamp"
               name="name"
               {...register("name")}
               required
@@ -155,6 +165,7 @@ function BootcampForm(props) {
             <TextField
               label="Website"
               name="website"
+              type={"url"}
               {...register("website")}
               required
               sx={TextFieldStyle}
@@ -162,6 +173,7 @@ function BootcampForm(props) {
             <TextField
               label="Phone"
               name="phone"
+              type={"tel"}
               {...register("phone")}
               required
               sx={TextFieldStyle}
@@ -182,6 +194,22 @@ function BootcampForm(props) {
               required
               sx={TextFieldStyle}
             />
+            {/* <InputLabel id="photo">Add a Photo?</InputLabel>
+            <IconButton
+              aria-label="upload picture"
+              id="photo"
+            >
+              <input hidden accept="image/*" type="file" />
+              <PhotoCamera sx={
+                {
+                  fontSize: "3.5rem",
+                  fontWeight: "bold",
+                  fontFamily: "Poppins",
+                  marginTop: "3rem",
+                  color: "#6741C7",
+                }
+              }/>
+            </IconButton> */}
           </div>
           <div className={s.a}>
             <InputLabel id="city">City</InputLabel>
@@ -218,42 +246,56 @@ function BootcampForm(props) {
               ))}
             </Select>
             <FormLabel>Does your Bootcamp have housing?</FormLabel>
-            <RadioGroup
-              aria-label="housing"
-              aria-required
-              {...register("housing")}
-            >
-              <FormControlLabel value={true} control={<Radio />} label="True" />
+            <RadioGroup aria-label="housing" aria-required defaultValue={false}>
+              <FormControlLabel
+                value={true}
+                control={<Radio />}
+                label="True"
+                {...register("housing")}
+              />
               <FormControlLabel
                 value={false}
                 control={<Radio />}
                 label="False"
+                {...register("housing")}
               />
             </RadioGroup>
             <FormLabel>Does your Bootcamp have Job Assistance?</FormLabel>
             <RadioGroup
               aria-label="Job Assistance"
               aria-required
-              {...register("jobAssistance")}
+              defaultValue={false}
             >
-              <FormControlLabel value={true} control={<Radio />} label="True" />
+              <FormControlLabel
+                value={true}
+                control={<Radio />}
+                label="True"
+                {...register("jobAssistance")}
+              />
               <FormControlLabel
                 value={false}
                 control={<Radio />}
                 label="False"
+                {...register("jobAssistance")}
               />
             </RadioGroup>
-            <FormLabel>Does your Bootcamp have Job Guarentee?</FormLabel>
+            <FormLabel>Does your Bootcamp have Job Guarantee?</FormLabel>
             <RadioGroup
               aria-label="Job Guarantee"
               aria-required
-              {...register("jobGuarantee")}
+              defaultValue={false}
             >
-              <FormControlLabel value={true} control={<Radio />} label="True" />
+              <FormControlLabel
+                value={true}
+                control={<Radio />}
+                label="True"
+                {...register("jobGuarantee")}
+              />
               <FormControlLabel
                 value={false}
                 control={<Radio />}
                 label="False"
+                {...register("jobGuarantee")}
               />
             </RadioGroup>
             <TextField
@@ -269,6 +311,7 @@ function BootcampForm(props) {
               variant="contained"
               type="submit"
               style={{ width: "350px", marginTop: "10px" }}
+              sx={buttonStyle}
             >
               Submit
             </Button>

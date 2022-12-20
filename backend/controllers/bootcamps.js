@@ -264,3 +264,33 @@ exports.getEnrolledUsers = asyncHandler(async (req, res, next) => {
   });
   res.status(200).json({ success: true, data: enrolledUsers });
 });
+
+//@GET
+// check if user is enrolled in bootcamp
+// /api/v1/bootcamps/:id/isEnrolled
+exports.isEnrolled = asyncHandler(async (req, res, next) => {
+  const bootcamp = await Bootcamp.findById(req.params.id);
+  if (!bootcamp) {
+    return next(
+      new ErrorResponse(`No Bootcamp Found with ${req.params.id}`, 400)
+    );
+  }
+  const enrolledUser = await EnrolledUsers.findOne({
+    user: req.user.id,
+    bootcamp: req.params.id,
+  });
+  if (enrolledUser) {
+    return res.status(200).json({ success: true, data: true });
+  }
+  res.status(200).json({ success: true, data: false });
+});
+
+// @GET
+// get all bootcamps the user has enrolled in
+// /api/v1/bootcamps/enrolledbootcamps
+exports.getEnrolledBootcamps = asyncHandler(async (req, res, next) => {
+  const enrolledBootcamps = await EnrolledUsers.find({ user: req.user.id });
+  const bootcampIds = enrolledBootcamps.map((bootcamp) => bootcamp.bootcamp);
+  const bootcamps = await Bootcamp.find({ _id: bootcampIds });
+  res.status(200).json({ success: true, data: bootcamps });
+});
