@@ -15,7 +15,7 @@ const {
   enrollInBootcamp,
   getEnrolledUsers,
   isEnrolled,
-  getEnrolledBootcamps
+  getEnrolledBootcamps,
 } = require("../controllers/bootcamps");
 
 const { protect, authorization } = require("../middleware/auth");
@@ -44,6 +44,5 @@ routes.route("/:id/unlike").post(protect, unlikeBootcamp);
 routes.route("/:id/enroll").get(protect, enrollInBootcamp);
 routes.route("/:id/enrolled").get(protect, getEnrolledUsers);
 routes.route("/:id/isEnrolled").get(protect, isEnrolled);
-
 
 module.exports = routes;

@@ -2,6 +2,7 @@ const express = require("express");
 const dot = require("dotenv");
 const morgan = require("morgan");
 const colors = require("colors");
+const rateLimit = require("./middleware/rateLimiting");
 const errorHandler = require("./middleware/error");
 const cookie = require("cookie-parser");
 const connection = require("./config/db");
@@ -23,8 +24,9 @@ if (process.env.NODE_ENV == "development") {
   app.use(morgan("dev"));
 }
 //mounting middleware
-app.use(cors())
+app.use(cors());
 app.use(cookie());
+app.use(rateLimit);
 app.use("/api/v1/bootcamps", bootcamps);
 app.use("/api/v1/auth", auth);
 app.use(errorHandler);

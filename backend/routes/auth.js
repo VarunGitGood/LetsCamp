@@ -12,7 +12,7 @@ const {
   addUser,
   updateUser,
   deleteUser,
-  getUser
+  getUser,
 } = require("../controllers/auth");
 
 const { protect, authorization } = require("../middleware/auth");
@@ -20,7 +20,6 @@ const { protect, authorization } = require("../middleware/auth");
 routes.route("/register").post(registerUser);
 routes.route("/login").post(login);
 routes.route("/me").get(protect, getMe);
-
 routes.route("/all").get(protect, authorization("admin"), getall);
 routes.route("/forgotpassword").post(forgotPassword);
 routes.route("/resetpassword/:resettoken").put(resetPassword);
@@ -29,6 +28,5 @@ routes.route("/adduser").post(addUser);
 routes.route("/updateuser/:id").put(updateUser);
 routes.route("/deleteuser/:id").delete(deleteUser);
 routes.route("/users/:id").get(getUser);
-
 
 module.exports = routes;
