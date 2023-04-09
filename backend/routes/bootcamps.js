@@ -21,24 +21,15 @@ const {
 const { protect, authorization } = require("../middleware/auth");
 const { route } = require("./reviews");
 const reviewRouter = require("./reviews");
+
+
 routes.use("/:bootcampId/reviews", reviewRouter);
-routes
-  .route("/")
-  .get(getBootcamps)
-  .post(protect, authorization("admin", "publisher"), addBootcamp);
+routes.route("/").get(getBootcamps).post(protect, authorization("admin", "publisher"), addBootcamp);
 routes.route("/liked").get(protect, getLikedBootcamps);
 routes.route("/ongoing").get(protect, getEnrolledBootcamps);
-routes
-  .route("/mybootcamps")
-  .get(protect, authorization("admin", "publisher"), myBootcamps);
-routes
-  .route("/:id")
-  .get(getBootcamp)
-  .put(protect, authorization("admin", "publisher"), updateBootcamp)
-  .delete(protect, authorization("admin", "publisher"), delBootcamp);
-routes
-  .route("/:id/photo")
-  .put(protect, authorization("admin", "publisher"), uploadBootcampPhoto);
+routes.route("/mybootcamps").get(protect, authorization("admin", "publisher"), myBootcamps);
+routes.route("/:id").get(getBootcamp).put(protect, authorization("admin", "publisher"), updateBootcamp).delete(protect, authorization("admin", "publisher"), delBootcamp);
+routes.route("/:id/photo").put(protect, authorization("admin", "publisher"), uploadBootcampPhoto);
 routes.route("/:id/like").post(protect, likeBootcamp);
 routes.route("/:id/unlike").post(protect, unlikeBootcamp);
 routes.route("/:id/enroll").get(protect, enrollInBootcamp);
