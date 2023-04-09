@@ -7,22 +7,25 @@ const errorHandler = require("./middleware/error");
 const cookie = require("cookie-parser");
 const connection = require("./config/db");
 const cors = require("cors");
+
 // loading env variables from env
 dot.config({ path: "./config/config.env" });
-const PORT = process.env.PORT || 5000;
 
 //db connected
 connection();
 const bootcamps = require("./routes/bootcamps");
 const auth = require("./routes/auth");
 
+// app
 const app = express();
+
 //using parser
 app.use(express.json());
 
 if (process.env.NODE_ENV == "development") {
   app.use(morgan("dev"));
 }
+
 //mounting middleware
 app.use(cors());
 app.use(cookie());
@@ -39,8 +42,8 @@ process.on("unhandledRejection", (err, promise) => {
   });
 });
 
-const server = app.listen(PORT, () => {
+const server = app.listen(process.env.PORT, () => {
   console.log(
-    `The Server is running in ${process.env.NODE_ENV} mode on ${PORT}`.green
+    `The Server is running in ${process.env.NODE_ENV} mode on ${process.env.PORT}`.green
   );
 });
