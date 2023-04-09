@@ -7,8 +7,9 @@
     "node": "v14.20.0"
   },
   "scripts": {
-    "start": "NODE_ENV=production node server",
-    "dev": "nodemon server"
+    "start": "node server",
+    "dev": "nodemon server",
+    "build": "node server"
   },
   "author": "Varun Singh",
   "license": "MIT",
