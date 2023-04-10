@@ -7,12 +7,16 @@ const crypto = require("crypto");
 
 exports.registerUser = asyncHandler(async (req, res, next) => {
   const { name, password, email, role } = req.body;
+  if (!name || !password || !email || !role) {
+    return next(new ErrorResponse("Please Enter Valid Details", 400));
+  }
   const user = await User.create({
     name,
     password,
     email,
     role,
   });
+  req.user = user;
   sendTokenResponseWithCookie(user, 200, res);
 });
 
@@ -36,6 +40,8 @@ exports.login = asyncHandler(async (req, res, next) => {
   if (!isCorrect) {
     return next(new ErrorResponse("invalid credentials", 401));
   }
+  req.user = user;
+  console.log(req.user);
 
   sendTokenResponseWithCookie(user, 200, res);
 });
@@ -155,4 +161,3 @@ exports.getUser = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.params.id);
   res.status(200).json({ success: true, data: user });
 });
-

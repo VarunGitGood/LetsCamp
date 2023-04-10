@@ -3,14 +3,15 @@ const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("./async");
 
 const cache = asyncHandler(async (req, res, next) => {
+  const uid = req.user ? req.user.id : 0;
   const redisClient = await redisInit();
-  const key = req.originalUrl;
+  const key = `{${req.method}}${req.originalUrl}${uid}}`;
+  console.log(key);
   const cacheData = {
     fromCache: false,
     data: null,
   };
-  const data = await redisClient.get(key);
-
+  const data= await redisClient.get(key);
   if (data !== null) {
     cacheData.fromCache = true;
     cacheData.data = JSON.parse(data);

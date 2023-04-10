@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const colors = require("colors");
 const rateLimit = require("./middleware/rateLimiting");
 const errorHandler = require("./middleware/error");
+const { redisInit } = require("./config/redisDB");
 const cache = require("./middleware/caching");
 const cookie = require("cookie-parser");
 const connection = require("./config/db");
@@ -28,9 +29,8 @@ if (process.env.NODE_ENV == "development") {
 //mounting middleware
 app.use(cors());
 app.use(cookie());
-app.use(cache);
 app.use(rateLimit);
-app.use("/api/v1/bootcamps", bootcamps);
+app.use("/api/v1/bootcamps",bootcamps);
 app.use("/api/v1/auth", auth);
 app.use(errorHandler);
 
@@ -50,6 +50,7 @@ process.on("unhandledRejection", (err, promise) => {
 
 const server = app.listen(process.env.PORT, () => {
   console.log(
-    `The Server is running in ${process.env.NODE_ENV} mode on ${process.env.PORT}`.green
+    `The Server is running in ${process.env.NODE_ENV} mode on ${process.env.PORT}`
+      .green
   );
 });
