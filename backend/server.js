@@ -4,15 +4,16 @@ const morgan = require("morgan");
 const colors = require("colors");
 const rateLimit = require("./middleware/rateLimiting");
 const errorHandler = require("./middleware/error");
+const cache = require("./middleware/caching");
 const cookie = require("cookie-parser");
 const connection = require("./config/db");
 const cors = require("cors");
 // loading env variables from env
 dot.config({ path: "./config/config.env" });
-const PORT = process.env.PORT || 5000;
 
 //db connected
 connection();
+
 const bootcamps = require("./routes/bootcamps");
 const auth = require("./routes/auth");
 
@@ -23,13 +24,21 @@ app.use(express.json());
 if (process.env.NODE_ENV == "development") {
   app.use(morgan("dev"));
 }
+
 //mounting middleware
 app.use(cors());
 app.use(cookie());
+app.use(cache);
 app.use(rateLimit);
 app.use("/api/v1/bootcamps", bootcamps);
 app.use("/api/v1/auth", auth);
 app.use(errorHandler);
+
+app.get("/api/v1/scam", (req, res) => {
+  res.json({
+    data: "This is a scam",
+  });
+});
 
 //handler for unhandled errors
 process.on("unhandledRejection", (err, promise) => {
@@ -39,8 +48,8 @@ process.on("unhandledRejection", (err, promise) => {
   });
 });
 
-const server = app.listen(PORT, () => {
+const server = app.listen(process.env.PORT, () => {
   console.log(
-    `The Server is running in ${process.env.NODE_ENV} mode on ${PORT}`.green
+    `The Server is running in ${process.env.NODE_ENV} mode on ${process.env.PORT}`.green
   );
 });
