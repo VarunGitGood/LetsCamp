@@ -1,0 +1,30 @@
+version: '3.7'
+services:
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis-data:/data
+    networks:
+      - LetsCamp
+
+  express-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - '8000:8000'
+    depends_on:
+      - redis
+    networks:
+      - LetsCamp
+
+networks:
+  LetsCamp:
+    driver: bridge
+
+volumes:
+  redis-data:
